@@ -15,25 +15,25 @@ function pow(x, n) {
 }
 
 /**
- * Вычисляет сумму чисел от 1 до n с использованием формулы.
+ * Вычисляет сумму чисел от 1 до n включительно.
  * @param {number} n - Натуральное число.
- * @returns {number} Сумма чисел от 1 до n.
+ * @returns {number} - Сумма чисел от 1 до n.
  */
 const sumTo = new Function('n', 'return n * (n + 1) / 2;');
 
 /**
  * Проверяет, является ли год високосным.
  * @param {number} year - Год для проверки.
- * @returns {boolean} true, если год високосный, иначе false.
+ * @returns {boolean} - true, если год високосный, иначе false.
  */
 function isLeapYear(year) {
     return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
 }
 
 /**
- * Вычисляет факториал числа n рекурсивно.
+ * Вычисляет факториал числа n.
  * @param {number} n - Неотрицательное целое число.
- * @returns {bigint} Факториал n в виде BigInt.
+ * @returns {bigint} - Факториал числа n в виде BigInt.
  */
 function factorial(n) {
     if (n === 0) return 1n;
@@ -42,8 +42,8 @@ function factorial(n) {
 
 /**
  * Вычисляет n-е число Фибоначчи.
- * @param {number} n - Порядковый номер числа Фибоначчи.
- * @returns {bigint} n-е число Фибоначчи в виде BigInt.
+ * @param {number} n - Порядковый номер числа.
+ * @returns {bigint} - n-е число Фибоначчи в виде BigInt.
  */
 function fib(n) {
     let a = 0n;
@@ -60,7 +60,7 @@ function fib(n) {
 /**
  * Возвращает функцию для сравнения с заданным значением x.
  * @param {number} x - Значение для сравнения.
- * @returns {function(number): (boolean|null)} Функция, сравнивающая свой аргумент с x.
+ * @returns {function} - Функция, сравнивающая y с x.
  */
 function compare(x) {
     return function(y) {
@@ -73,7 +73,7 @@ function compare(x) {
 /**
  * Возвращает сумму всех переданных аргументов.
  * @param {...number} args - Числа для суммирования.
- * @returns {number} Сумма аргументов.
+ * @returns {number} - Сумма аргументов.
  */
 function sum(...args) {
     return args.reduce((acc, curr) => acc + curr, 0);
