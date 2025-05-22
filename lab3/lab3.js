@@ -51,7 +51,7 @@ export function truncate(str, maxlength){
  * @param {string} str - Исходная строка
  * @returns {string} - Изменнёная строка
  */
-function camelize(str) {
+export function camelize(str) {
   return str
     .split('-')                        
     .filter(part => part !== '')         
