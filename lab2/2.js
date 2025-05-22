@@ -1,94 +1,103 @@
 /**
- * Возвращает x в степени n (n - целое число).
- * @param {number} x - Основание степени.
- * @param {number} n - Показатель степени (целое число).
- * @returns {number} Результат возведения x в степень n.
+ * Возвращает дробную часть числа
+ * @param {number} num - Исходное число
+ * @returns {number} Дробная часть числа
  */
-function pow(x, n) {
-    if (n === 0) return 1;
-    if (n < 0) return 1 / pow(x, -n);
-    
-    let result = 1;
-    for (let i = 0; i < n; i++) {
-        result *= x;
+export function getDecimal(num) {
+    const decimal = num - Math.floor(num);
+    return parseFloat(decimal.toFixed(10)); // Фиксим проблему с плавающей точкой
+}
+
+/**
+ * Нормализует URL, добавляя https:// в начало при необходимости
+ * @param {string} url - Исходный URL
+ * @returns {string} Нормализованный URL
+ */
+export function normalizeUrl(url) {
+    if (url.startsWith('http://')) {
+        return 'https://' + url.slice(7);
     }
-    return result;
-}
-
-/**
- * Вычисляет сумму чисел от 1 до n включительно.
- * @param {number} n - Натуральное число.
- * @returns {number} Сумма чисел от 1 до n.
- */
-function sumTo(n) {
-    return n * (n + 1) / 2;
-}
-
-/**
- * Проверяет год на високосность.
- * @param {number} year - Год для проверки.
- * @returns {boolean} true, если год високосный, иначе false.
- */
-function isLeapYear(year) {
-    return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
-}
-
-/**
- * Возвращает факториал числа n (n!).
- * @param {number} n - Число для вычисления факториала.
- * @returns {bigint} Факториал числа n в виде BigInt.
- */
-function factorial(n) {
-    if (n === 0) return 1n;
-    return BigInt(n) * factorial(n - 1);
-}
-
-/**
- * Возвращает n-е число Фибоначчи.
- * @param {number} n - Порядковый номер числа Фибоначчи.
- * @returns {bigint} n-е число Фибоначчи в виде BigInt.
- */
-function fib(n) {
-    let a = 0n;
-    let b = 1n;
-    if (n === 0) return a;
-    
-    for (let i = 2; i <= n; i++) {
-        const c = a + b;
-        a = b;
-        b = c;
+    if (url.startsWith('https://')) {
+        return url;
     }
-    return b;
+    return 'https://' + url;
 }
 
 /**
- * Возвращает функцию, которая сравнивает свой аргумент с x.
- * @param {number} x - Число для сравнения.
- * @returns {function} Функция, которая принимает y и сравнивает его с x.
+ * Проверяет строку на наличие спама (viagra или XXX)
+ * @param {string} str - Проверяемая строка
+ * @returns {boolean} true, если найден спам
  */
-function compare(x) {
-    return function(y) {
-        if (y > x) return true;
-        if (y < x) return false;
-        return null;
-    };
+export function checkSpam(str) {
+    const lowerStr = str.toLowerCase();
+    return lowerStr.includes('viagra') || lowerStr.includes('xxx');
 }
 
 /**
- * Возвращает сумму всех переданных аргументов.
- * @param {...number} args - Числа для суммирования.
- * @returns {number} Сумма всех аргументов.
+ * Усекает строку до указанной длины, добавляя многоточие при необходимости
+ * @param {string} str - Исходная строка
+ * @param {number} maxlength - Максимальная длина строки
+ * @returns {string} Усеченная строка
  */
-function sum(...args) {
-    return args.reduce((total, current) => total + current, 0);
+export function truncate(str, maxlength) {
+    if (str.length <= maxlength) {
+        return str;
+    }
+    return str.slice(0, maxlength - 1) + '…';
 }
 
 /**
- * Добавляет символьное свойство blackSpot со значением true к переданному объекту.
- * @param {Object} obj - Объект для модификации.
- * @returns {Object} Исходный объект с добавленным свойством blackSpot.
+ * Преобразует строку с дефисами в camelCase
+ * @param {string} str - Исходная строка
+ * @returns {string} Строка в camelCase
  */
-function addBlackSpot(obj) {
-    obj[Symbol.for("blackSpot")] = true;
-    return obj;
+export function camelize(str) {
+    return str.split(/[-_]+/).map((word, index) => {
+        if (index === 0) {
+            return word;
+        }
+        return ucFirst(word);
+    }).join('');
+}
+
+/**
+ * Преобразует первую букву строки в верхний регистр
+ * @param {string} str - Исходная строка
+ * @returns {string} Строка с первой заглавной буквой
+ */
+function ucFirst(str) {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
+}
+
+/**
+ * Возвращает массив чисел Фибоначчи до n-го (не включая)
+ * @param {number} n - Количество чисел Фибоначчи
+ * @returns {bigint[]} Массив чисел Фибоначчи
+ */
+export function fibs(n) {
+    if (n <= 0) return [];
+    const result = [0n, 1n];
+    for (let i = 2; i < n; i++) {
+        result.push(result[i-1] + result[i-2]);
+    }
+    return result.slice(0, n);
+}
+
+/**
+ * Возвращает новый массив, отсортированный по убыванию
+ * @param {number[]} arr - Исходный массив
+ * @returns {number[]} Новый массив, отсортированный по убыванию
+ */
+export function arrReverseSorted(arr) {
+    return [...arr].sort((a, b) => b - a);
+}
+
+/**
+ * Возвращает массив уникальных значений
+ * @param {any[]} arr - Исходный массив
+ * @returns {any[]} Массив уникальных значений
+ */
+export function unique(arr) {
+    return [...new Set(arr)];
 }
