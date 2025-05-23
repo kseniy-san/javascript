@@ -55,7 +55,7 @@
 
     <script>
         "use strict";
-        document.getElementById('countBtn').addEventListener('click', function() {
+        document.getElementById('countBtn').addEventListener('submit', function(event) {
             const numInput = document.getElementById('num');
             const num = parseInt(numInput.value);
             
@@ -87,6 +87,7 @@
             }
             
             alert(`На ветке сидит ${num} ${ending}`);
+            event.preventDefault();
         });
     </script>
 </body>

@@ -77,8 +77,8 @@
             </div>
         </div>
         
-        <button type="button" id="calculateBtn">Рассчитать</button>
-        <!-- <button type="submit" id="calculateBtn">Рассчитать</button> -->
+        <!-- <button type="button" id="calculateBtn">Рассчитать</button> -->
+        <button type="submit" id="calculateBtn">Рассчитать</button>
         <div>
             <label for="result">Результат:</label>
             <textarea id="result" rows="4" readonly></textarea>
@@ -86,7 +86,7 @@
     </form>
 
     <script>
-        document.getElementById('calculateBtn').addEventListener('click', function() {
+        document.getElementById('pensionForm').addEventListener('submit', function(event) {
             const age = parseInt(document.getElementById('age').value);
             const gender = document.querySelector('input[name="gender"]:checked')?.value;
             const result = document.getElementById('result');
@@ -120,6 +120,7 @@
             }
             
             result.value = message;
+            event.preventDefault();
         });
     </script>
 </body>
