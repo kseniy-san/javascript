@@ -63,17 +63,20 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Простые числа</h1>
-        <label for="number">Введите число n (n ≥ 2):</label>
-        <input type="number" id="number" min="2" required>
-        <button type="submit" id="findButton">Найти</button>
-        <div id="result"></div>
-    </div>
+    <h1>Простые числа</h1>
+    <form id="crowForm">
+        <div class="container">
+            <!-- <h1>Простые числа</h1> -->
+            <label for="number">Введите число n (n ≥ 2):</label>
+            <input type="number" id="number" min="2" required>
+            <button type="submit" id="findButton">Найти</button>
+            <div id="result"></div>
+        </div>
+    </form>
 
     <script>
         "use script";
-        document.getElementById('findButton').addEventListener('click', function() {
+        document.getElementById('crowForm').addEventListener('submit', function(event) {
             const n = parseInt(document.getElementById('number').value);
             const resultDiv = document.getElementById('result');
             
@@ -93,6 +96,7 @@
                     <p>Всего найдено: ${primes.length}</p>
                 `;
             }
+            event.preventDefault();
         });
         
         function findPrimes(max) {
