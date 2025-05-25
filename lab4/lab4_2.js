@@ -45,7 +45,7 @@ class Book {
     console.log(`Название: ${this.title}, Цена: ${this.price} руб`);
   }
 }
-const myBook = new Book("Мы", -1920, 300);
+const myBook = new Book("", 1920, 300);
 myBook.show(); 
 
 
