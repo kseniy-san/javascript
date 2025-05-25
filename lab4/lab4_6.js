@@ -7,7 +7,8 @@ const obj = {
 };
 
 const jsonString = JSON.stringify(obj, null, 2);
-console.log("Сериализованный JSON:");
+console.log("JSON:");
+console.log(obj);
 console.log(jsonString);
 
 const obj2 = JSON.parse(jsonString);
