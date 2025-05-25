@@ -45,30 +45,29 @@ class Book {
     console.log(`Название: ${this.title}, Цена: ${this.price} руб`);
   }
 }
-const myBook = new Book("", 1920, 300);
+const myBook = new Book("Clean Code", 2008, 3999);
 myBook.show(); 
 
-
-//   /** Статический метод для сравнения книг по году публикации */
-//   static compare(a, b) {
-//     return a.pubYear - b.pubYear;
-//   }
-// }
-
-// // Пример использования
-// try {
-//   const book1 = new Book("JavaScript: The Good Parts", 2008, 29.99);
-//   const book2 = new Book("Clean Code", 2008, 39.99);
-//   const book3 = new Book("Design Patterns", 1994, 49.99);
-
-//   book1.price = 19.99; 
-
-//   const books = [book1, book2, book3];
-//   books.sort(Book.compare);
-
-//   console.log("Отсортированные книги:");
-//   books.forEach(book => book.show());
-
-// } catch (error) {
-//   console.error("Ошибка:", error.message);
-// }
+try {
+  myBook.title = 'Clean Code';
+  myBook.pubYear = -2008;
+  myBook.price = 3999;
+  myBook.show(); 
+} catch (error) {
+  console.error('Ошибка:', error.message);
+}
+try {
+    myBook.title = ''; 
+    myBook.pubYear = 2008; 
+   myBook.price = 3999; 
+}catch (error) {
+  console.error('Ошибка:', error.message);
+}
+try {
+  myBook.title = 'Clean Code';
+  myBook.pubYear = 2008;
+  myBook.price = -3999;
+  myBook.show(); 
+} catch (error) {
+  console.error('Ошибка:', error.message);
+}
