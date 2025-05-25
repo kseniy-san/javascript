@@ -19,3 +19,4 @@ class Book {
 
 const myBook = new Book("Мы", 1920, 300);
 myBook.show(); 
+
