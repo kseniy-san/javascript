@@ -371,6 +371,20 @@
     </table>
     <script>
         /* ваш код */
+        'use strict';
+        function colorChessboard() {
+            const rows = document.querySelectorAll('tr'); //строка
+
+            for (let i = 1; i <= 8; i++) {
+                const cells = rows[i].querySelectorAll('td'); // ячейки
+                for (let j = 1; j < 9; j++)
+                    if ((i + j) % 2 === 0)
+                        cells[j].style.backgroundColor = '#ffce9e'; 
+                    else
+                        cells[j].style.backgroundColor = '#d18b47'; 
+            }
+        }
+        colorChessboard();
     </script>
 </body>
 
