@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Text</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=MgSKEimTPfVe0zefcAEp8ghx8lsyVQgoW7tGumdWopqYiC6IwATM-xGeyCNSnzi8cMkduYHl1sM_9dxOiTzK9Q" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9mZWR5YWV2eXMucnUvamF2YXNjcmlwdC9sYWI1L3RleHQuaHRtbA"/></head>
+<body>
+	<input type="button" id="hider" value="Спрятать текст">
+
+	<div id="text">Текст</div>
+
+	<script>
+    /* ваш код */
+    'use strict';
+        document.addEventListener('DOMContentLoaded', function() {
+            const hiderButton = document.getElementById('hider');
+            const textElement = document.getElementById('text');
+            
+            hiderButton.addEventListener('click', function() {
+                if (textElement.style.display === 'none') {
+                    textElement.style.display = 'block';
+                    hiderButton.value = 'Спрятать текст';
+                } else {
+                    textElement.style.display = 'none';
+                    hiderButton.value = 'Показать текст';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
