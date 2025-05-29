@@ -30,4 +30,4 @@ let obj = {
 console.log(obj.className);
 
 obj.addClass('new').removeClass('open');
-console.log(obj.className); // "menu new"
+console.log(obj.className); 
