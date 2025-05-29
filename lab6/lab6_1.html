@@ -3,40 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Выбор музыкального жанра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор жанра</title>
 </head>
 
 <body>
 
-    <select id="music-genre">
+    <select id="musicSelect">
         <option value="Rock">Рок</option>
-        <option value="Blues">Блюз</option>
-        <option value="Classic" selected>Классика</option>
+        <option value="Blues" selected>Блюз</option>
     </select>
-
-    <div id="selected-info">
-        <p>Выбранное значение: <span id="selected-value"></span></p>
-        <p>Выбранный текст: <span id="selected-text"></span></p>
-    </div>
 
     <script>
         'use strict';
-
-        const selectElement = document.getElementById('music-genre');
-        const selectedValueElement = document.getElementById('selected-value');
-        const selectedTextElement = document.getElementById('selected-text');
-
-        function updateSelectedInfo() {
-            const selectedOption = selectElement.options[selectElement.selectedIndex];
-            selectedValueElement.textContent = selectedOption.value;
-            selectedTextElement.textContent = selectedOption.text;
-        }
-
-
-        updateSelectedInfo();
-        selectElement.addEventListener('change', updateSelectedInfo);
+        const select = document.querySelector('select');
+        const selectedOption = select.options[select.selectedIndex];
+        console.log(`Значение: ${selectedOption.value}, Текст: ${selectedOption.text}`);
+        const newOption = new Option('Классика', 'Classic');
+        select.add(newOption);
+        newOption.selected = true;
+        console.log(`'Новая выбранная опция:', Значение: ${select.value}, Текст: ${select.options[select.selectedIndex].text}`);
     </script>
-
 </body>
 
 </html>
