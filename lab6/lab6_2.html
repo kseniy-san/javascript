@@ -6,8 +6,7 @@
     <title>Плейсхолдер-подсказка</title>
     <style>
         .field {
-            max-width: 780px;
-
+            max-width: 180px;
             position: relative;
             margin-bottom: 40px;
 
@@ -20,12 +19,10 @@
             width: 100%;
             padding: 26px 16px;
             padding-bottom: 16px;
-            font-size: inherit;
-            color: inherit;
             border: 2px solid #b3b3b3;
             border-radius: 12px;
             background-color: #f5f2f2;
-            box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.3) inset;
+            box-shadow: 0px 0px 24px 0px rgba(141, 120, 120, 0.3) inset;
 
             &::placeholder {
                 opacity: 0;
@@ -36,9 +33,7 @@
             position: absolute;
             top: 1.2em;
             left: 17px;
-
-            color: #a1a1a1;
-            font-weight: 500;
+            color: #450ce2;
             transition: all 0.2s ease-in-out;
         }
 
@@ -46,29 +41,6 @@
         .text-input:not(:placeholder-shown)~.form-popup__label {
             font-size: 12px;
             transform: translateY(-0.4em);
-        }
-
-        .text-input.valid:focus~.form-popup__label,
-        .text-input.valid:not(:placeholder-shown)~.form-popup__label {
-            color: #00c2ff;
-        }
-
-        .text-input.error:focus~.form-popup__label,
-        .text-input.error:not(:placeholder-shown)~.form-popup__label {
-            color: #ff006b;
-        }
-
-        .text-input.valid {
-            border-radius: 12px;
-            border: 2px solid #00c2ff;
-            box-shadow: 0px 0px 24px 0px rgba(0, 194, 255, 0.3),
-                0px 0px 24px 0px rgba(0, 194, 255, 0.3) inset;
-        }
-
-        .text-input.error {
-            border: 2px solid #ff006b;
-            box-shadow: 0px 0px 24px 0px rgba(255, 0, 107, 0.3),
-                0px 0px 24px 0px rgba(255, 0, 107, 0.3) inset;
         }
     </style>
 </head>
