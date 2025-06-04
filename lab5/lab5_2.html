@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список объектов</title>
     <style>
-        body{
+        body {
             background-color: rgb(231, 250, 250);
         }
+
         li {
             margin: 5px 0;
         }
@@ -22,7 +23,7 @@
         'use strict';
         function createTree(container, data) {
             function createTreeDom(obj) {
-                if (!Object.keys(obj).length) 
+                if (!Object.keys(obj).length)
                     return null;
                 let ul = document.createElement('ul');
                 for (let key in obj) {
@@ -63,4 +64,5 @@
 
     </script>
 </body>
+
 </html>
