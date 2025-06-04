@@ -1,3 +1,4 @@
+'use strict';
 const obj = {
   name: "Test",
   data: {

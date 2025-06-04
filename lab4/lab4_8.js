@@ -1,3 +1,4 @@
+'use strict';
 function formatDate(date) {
   const padZero = (n) => n.toString().padStart(2, '0');
   
