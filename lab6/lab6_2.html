@@ -3,55 +3,75 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Плейсхолдер-подсказка</title>
     <style>
-        .field {
-            max-width: 180px;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .input-container {
             position: relative;
-            margin-bottom: 40px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+            width: 300px;
+            margin: 20px;
         }
 
-        .text-input {
+        input {
             width: 100%;
-            padding: 26px 16px;
-            padding-bottom: 16px;
-            border: 2px solid #b3b3b3;
-            border-radius: 12px;
-            background-color: #f5f2f2;
-            box-shadow: 0px 0px 24px 0px rgba(141, 120, 120, 0.3) inset;
-
-            &::placeholder {
-                opacity: 0;
-            }
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        .form-popup__label {
+        label {
             position: absolute;
-            top: 1.2em;
-            left: 17px;
-            color: #450ce2;
-            transition: all 0.2s ease-in-out;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            background-color: white;
+            padding: 0 5px;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
 
-        .text-input:focus~.form-popup__label,
-        .text-input:not(:placeholder-shown)~.form-popup__label {
+        input:focus+label,
+        input:not(:placeholder-shown)+label {
+            top: 0;
+            transform: translateY(-50%);
             font-size: 12px;
-            transform: translateY(-0.4em);
+            color: #4285f4;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4285f4;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="field">
-        <input name="email" type="email" inputmode="email" class="text-input" id="email" placeholder="Email">
-        <label for="email" class="form-popup__label">Email</label>
+    <div class="input-container">
+        <input type="text" id="input-field" placeholder=" ">
+        <label for="input-field">Введите текст</label>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('input-field');
+            const label = document.querySelector('label');
+
+            input.setAttribute('placeholder', ' ');
+        });
+    </script>
 </body>
 
 </html>
