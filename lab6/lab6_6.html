@@ -1,85 +1,62 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Плейсхолдер-подсказка</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-        
-        .input-container {
-            position: relative;
-            width: 300px;
-            margin: 20px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        label {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            background-color: white;
-            padding: 0 5px;
-            transition: all 0.3s ease;
-            pointer-events: none;
+        ::placeholder {
+            color: blue;
             opacity: 1;
         }
-        
-        input:focus + label,
-        input:not(:placeholder-shown) + label {
-            opacity: 0;
-            visibility: hidden;
+
+        #placeholder:focus+label {
+            top: 0;
+            font-size: 12px;
+            transform: translateY(-50%);
         }
-        
-        input:focus {
+
+        #placeholder:focus {
             outline: none;
             border-color: #4285f4;
         }
     </style>
 </head>
+
 <body>
-    <div class="input-container">
-        <input type="text" id="input-field" placeholder=" ">
-        <label for="input-field">Введите текст</label>
-    </div>
+
+    <form id="form">
+        <label for="placeholder"></label>
+        <input id="placeholder" type="text" data-placeholder="Введите текст">
+    </form>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const input = document.getElementById('input-field');
-            const label = document.querySelector('label');
-            
-            // Инициализация плейсхолдера
-            input.setAttribute('placeholder', ' ');
-            
-            // Дополнительная проверка при вводе текста
-            input.addEventListener('input', function() {
-                if (this.value) {
-                    label.style.opacity = '0';
-                    label.style.visibility = 'hidden';
-                } else {
-                    label.style.opacity = '1';
-                    label.style.visibility = 'visible';
-                }
-            });
+        'use strict';
+
+        let form = document.getElementById("form");
+        let field = form.getElementsByTagName('input')[0];
+        let label = form.getElementsByTagName('label')[0];
+
+        label.style.visibility = 'hidden';
+
+        field.setAttribute('placeholder', field.dataset.placeholder);
+        label.innerHTML = field.dataset.placeholder;
+
+        field.addEventListener('focus', () => {
+            label.style.visibility = 'visible';
+            field.setAttribute('placeholder', '');
         });
+
+        field.addEventListener('blur', () => {
+            label.style.visibility = 'hidden';
+            field.setAttribute('placeholder', field.dataset.placeholder);
+
+        });
+
     </script>
+
 </body>
+
 </html>

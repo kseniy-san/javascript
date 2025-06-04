@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плейсхолдер-подсказка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        #form {
+            position: relative;
+            width: 300px;
+        }
+        
+        #placeholder {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        #form label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: blue;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            padding: 0 5px;
+        }
+        
+        #placeholder:focus + label {
+            top: 0;
+            font-size: 12px;
+            transform: translateY(-50%);
+        }
+        
+        #placeholder:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+        
+        ::placeholder {
+            color: blue;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        <input id="placeholder" type="text" data-placeholder="Введите текст">
+        <label for="placeholder"></label>
+    </form>
+
+    <script>
+        'use strict';
+
+        let form = document.getElementById("form");
+        let field = document.getElementById("placeholder");
+        let label = form.getElementsByTagName('label')[0];
+
+        label.style.visibility = 'hidden';
+
+        field.setAttribute('placeholder', field.dataset.placeholder);
+        label.innerHTML = field.dataset.placeholder;
+
+        field.addEventListener('focus', () => {
+            label.style.visibility = 'visible';
+            field.setAttribute('placeholder', '');
+        });
+
+        field.addEventListener('blur', () => {
+            if (!field.value) {
+                label.style.visibility = 'hidden';
+                field.setAttribute('placeholder', field.dataset.placeholder);
+            }
+        });
+    </script>
+</body>
+</html>
