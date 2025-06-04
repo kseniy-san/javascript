@@ -1,9 +1,6 @@
 'use strict';
-class Book {
-  #title;   
-  #pubYear;
-  #price;
 
+class Book {
   constructor(title, pubYear, price) {
     this.title = title;
     this.pubYear = pubYear;
@@ -11,44 +8,46 @@ class Book {
   }
 
   get title() {
-    return this.#title;
+    return this._title;
   }
 
-  set title(value) {
-    if (value.trim() === '') {
-      throw new Error("Название не может быть пустым");
+  set title(text) {
+    if (typeof text !== 'string' || text.trim() === '') {
+      throw new Error('Title must be a non-empty string.');
     }
-    this.#title = value;
+    this._title = text.trim();
   }
 
   get pubYear() {
-    return this.#pubYear;
+    return this._pubYear;
   }
 
-  set pubYear(value) {
-    if (typeof value !== 'number' || value <= 0) {
-      throw new Error("Год публикации должен быть положительным числом");
+  set pubYear(newPubYear) {
+    if (typeof newPubYear !== 'number' || newPubYear <= 0 || !Number.isInteger(newPubYear)) {
+      throw new Error('pubYear must be a positive integer.');
     }
-    this.#pubYear = value;
+    this._pubYear = newPubYear;
   }
 
   get price() {
-    return this.#price;
+    return this._price;
   }
 
-  set price(value) {
-    if (typeof value !== 'number' || value <= 0) {
-      throw new Error("Цена должна быть положительным числом");
+  set price(newPrice) {
+    if (typeof newPrice !== 'number' || newPrice <= 0) {
+      throw new Error('Price must be a positive number.');
     }
-    this.#price = value;
+    this._price = newPrice;
   }
 
   show() {
-    console.log(`Название: ${this.title}, Цена: ${this.price} руб, Год выпуска: ${this.pubYear}`);
+    console.log(`Название: ${this._title},
+Год публикации: ${this._pubYear},
+Цена: ${this._price}`);
   }
 
-  static compare(a, b) {
-    return a.pubYear - b.pubYear;
+  static compare(book1, book2) {
+    return book1.pubYear - book2.pubYear;
   }
 }
 

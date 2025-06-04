@@ -1,4 +1,5 @@
 'use strict';
+
 class Book {
     constructor(title, pubYear, price) {
         this.title = title;
@@ -12,7 +13,7 @@ class Book {
 
     set title(text) {
         if (typeof text !== 'string' || text.trim() === '') {
-            throw new Error('Название не может быть пустым');
+            throw new Error('Title must be a non-empty string.');
         }
         this._title = text.trim();
     }
@@ -23,7 +24,7 @@ class Book {
 
     set pubYear(newPubYear) {
         if (typeof newPubYear !== 'number' || newPubYear <= 0 || !Number.isInteger(newPubYear)) {
-            throw new Error('Год публикации должен быть положительным числом');
+            throw new Error('pubYear must be a positive integer.');
         }
         this._pubYear = newPubYear;
     }
@@ -34,7 +35,7 @@ class Book {
 
     set price(newPrice) {
         if (typeof newPrice !== 'number' || newPrice <= 0) {
-            throw new Error('Цена должна быть положительным числом');
+            throw new Error('Price must be a positive number.');
         }
         this._price = newPrice;
     }
@@ -44,30 +45,23 @@ class Book {
 Год публикации: ${this._pubYear},
 Цена: ${this._price}`);
     }
+
+    static compare(book1, book2) {
+        return book1.pubYear - book2.pubYear;
+    }
 }
-const myBook = new Book("Clean Code", 2008, 3999);
-myBook.show(); 
 
 try {
-  myBook.title = 'Clean Code';
-  myBook.pubYear = -2008;
-  myBook.price = 3999;
-  myBook.show(); 
+  const book1 = new Book("Невеста октября", 2022, 800);
+  const book2 = new Book("Бог", 2008, 3999);
+  const book3 = new Book("Мы", 1920, 300);
+
+  const books = [book1, book2, book3];
+  books.sort(Book.compare);
+
+  console.log("Отсортированные книги:");
+  books.forEach(book => book.show());
+
 } catch (error) {
-  console.error('Ошибка:', error.message);
-}
-try {
-    myBook.title = ''; 
-    myBook.pubYear = 2008; 
-   myBook.price = 3999; 
-}catch (error) {
-  console.error('Ошибка:', error.message);
-}
-try {
-  myBook.title = 'Clean Code';
-  myBook.pubYear = 2008;
-  myBook.price = -3999;
-  myBook.show(); 
-} catch (error) {
-  console.error('Ошибка:', error.message);
+  console.error("Ошибка:", error.message);
 }
