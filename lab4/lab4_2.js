@@ -1,73 +1,51 @@
-class Book {
-  #title;  
-  #pubYear;
-  #price;
-  constructor(title, pubYear, price) {
-    this.title = title;
-    this.pubYear = pubYear;
-    this.price = price;
-  }
+function Book(title, pubYear, price) {
+  let _title = title;
+  let _pubYear = pubYear;
+  let _price = price;
 
-  get title() {
-    return this.#title;
-  }
-
-  set title(value) {
-    if (value.trim() === '') {
-      throw new Error("Название не может быть пустым");
+  Object.defineProperties(this, {
+    title: {
+      get() { return _title; },
+      set(value) {
+        if (value.trim() !== "") {
+          _title = value;
+        } else {
+          console.error("Название не может быть пустым");
+        }
+      }
+    },
+    pubYear: {
+      get() { return _pubYear; },
+      set(value) {
+        if (value > 0) {
+          _pubYear = value;
+        } else {
+          console.error("Год издания должен быть положительным");
+        }
+      }
+    },
+    price: {
+      get() { return _price; },
+      set(value) {
+        if (value > 0) {
+          _price = value;
+        } else {
+          console.error("Цена должна быть положительной");
+        }
+      }
     }
-    this.#title = value;
-  }
-
-  get pubYear() {
-    return this.#pubYear;
-  }
-
-  set pubYear(value) {
-    if (typeof value !== 'number' || value <= 0) {
-      throw new Error("Год публикации должен быть положительным числом");
-    }
-    this.#pubYear = value;
-  }
-
-  get price() {
-    return this.#price;
-  }
-
-  set price(value) {
-    if (typeof value !== 'number' || value <= 0) {
-      throw new Error("Цена должна быть положительным числом");
-    }
-    this.#price = value;
-  }
-
-  show() {
-    console.log(`Название: ${this.title}, Цена: ${this.price} руб`);
-  }
+  });
 }
-const myBook = new Book("Clean Code", 2008, 3999);
-myBook.show(); 
 
-try {
-  myBook.title = 'Clean Code';
-  myBook.pubYear = -2008;
-  myBook.price = 3999;
-  myBook.show(); 
-} catch (error) {
-  console.error('Ошибка:', error.message);
-}
-try {
-    myBook.title = ''; 
-    myBook.pubYear = 2008; 
-   myBook.price = 3999; 
-}catch (error) {
-  console.error('Ошибка:', error.message);
-}
-try {
-  myBook.title = 'Clean Code';
-  myBook.pubYear = 2008;
-  myBook.price = -3999;
-  myBook.show(); 
-} catch (error) {
-  console.error('Ошибка:', error.message);
-}
+const book = new Book("Невеста октября", 2024, 1000);
+console.log(`Название: ${book.title}, Цена: ${book.price} руб, Год выпуска: ${book.pubYear}`);
+
+book.title = "Мы";
+book.pubYear = 2021;
+book.price = 1200;
+
+console.log(`Название: ${book.title}, Цена: ${book.price} руб, Год выпуска: ${book.pubYear}`);
+
+book.title = "";
+book.pubYear = -1;
+book.price = -100; 
