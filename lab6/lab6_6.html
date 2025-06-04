@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактируемая таблица</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            /* Фиксированная ширина столбцов */
+        }
+
+        th,
+        td {
+            border: 1px solid #070707;
+            padding: 8px;
+            overflow: hidden;
+            /* Скрываем содержимое, выходящее за границы */
+            text-overflow: ellipsis;
+            /* Добавляем многоточие при переполнении */
+            white-space: nowrap;
+            /* Запрещаем перенос текста */
+        }
+
+        td textarea {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            resize: none;
+            /* Отключаем изменение размера textarea */
+            border: none;
+            /* Убираем границу у textarea */
+            outline: none;
+            /* Убираем контур при фокусе */
+            background: transparent;
+            /* Прозрачный фон */
+            font-family: inherit;
+            /* Наследуем шрифт */
+            font-size: inherit;
+            /* Наследуем размер шрифта */
+            padding: 0;
+            /* Убираем отступы */
+            margin: 0;
+            /* Убираем отступы */
+        }
+
+        .edit-buttons {
+            margin-top: 5px;
+            text-align: right;
+            /* Выравниваем кнопки по правому краю */
+        }
+
+        .edit-buttons button {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="editable-table">
+        <colgroup>
+            <col style="width: 33%"> <!-- Фиксируем ширину колонок -->
+            <col style="width: 33%">
+            <col style="width: 33%">
+        </colgroup>
+        <tr>
+            <th>Колонка 1</th>
+            <th>Колонка 2</th>
+            <th>Колонка 3</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <script>
+        document.getElementById('editable-table').addEventListener('click', function (event) {
+            let target = event.target;
+
+            // Игнорируем клики по textarea и кнопкам
+            if (target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON')
+                return;
+            if (document.querySelector('td.editing'))
+                return;
+
+            // Ищем ячейку таблицы
+            while (target && target !== this) {
+                if (target.tagName === 'TD') {
+                    startEditing(target);
+                    return;
+                }
+                target = target.parentNode;
+            }
+        });
+
+        function startEditing(td) {
+            // Запрещаем редактирование нескольких ячеек одновременно
+            if (document.querySelector('td.editing')) return;
+
+            td.classList.add('editing');
+
+            let currentText = td.textContent; // Используем textContent вместо innerHTML
+            td.setAttribute('original-text', currentText);
+
+            // Создаем textarea с фиксированной высотой
+            td.innerHTML = 
+                <textarea>${currentText}</textarea>
+                <div class="edit-buttons">
+                    <button class="ok-button">OK</button>
+                    <button class="cancel-button">ОТМЕНА</button>
+                </div>
+                ;
+
+            // Устанавливаем высоту textarea равной высоте ячейки
+            const textarea = td.querySelector('textarea');
+            textarea.style.height = td.offsetHeight - td.querySelector('.edit-buttons').offsetHeight - 16 + 'px';
+            textarea.focus();
+
+            // Обработчики для кнопок
+            td.querySelector('.ok-button').addEventListener('click', function () {
+                finishEditing(td, true);
+            });
+            td.querySelector('.cancel-button').addEventListener('click', function () {
+                finishEditing(td, false);
+            });
+        }
+
+        function finishEditing(td, isSave) {
+            const textarea = td.querySelector('textarea');
+            const originalText = td.getAttribute('original-text');
+
+            td.innerHTML = isSave ? textarea.value : originalText;
+            td.classList.remove('editing');
+        }
+    </script>
+
+</body>
+
+</html>
